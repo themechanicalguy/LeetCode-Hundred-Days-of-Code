@@ -1,0 +1,87 @@
+/*
+Given an array of integers and another number. Find all the unique quadruple 
+from the given array that sums up to the given number.
+
+Example 1:
+
+Input:
+N = 5, K = 3
+A[] = {0,0,2,1,1}
+Output: 0 0 1 2 $
+Explanation: Sum of 0, 0, 1, 2 is equal
+to K.
+
+*/
+
+function fourSum(arr, n, target) {
+  let res = [];
+  //sort the array
+  arr.sort((a, b) => a - b);
+  //start a loop from i=0 to n
+  for (let i = 0; i < n; i++) {
+    //start a loop from j=i+1 to n-1
+    for (let j = i + 1; j < n - 1; j++) {
+      //if duplicates increment j
+      if (j > i + 1 && arr[j] === arr[j - 1]) continue;
+      //fix left pointer
+      let left = j + 1;
+      //fix right pointer
+      let right = n - 1;
+      //terminating condn left < right
+      while (left < right) {
+        let sum = arr[i] + arr[j] + arr[left] + arr[right];
+        //check if sum === target, return quadpulets
+        if (sum === target) {
+          res.push([arr[i], arr[j], arr[left], arr[right]]);
+        }
+        //increment left if duplicates
+        while (arr[left] === arr[left + 1]) left++;
+        //decrement right if duplicates
+        while (arr[right] === arr[right - 1]) right--;
+
+        sum < target ? left++ : right--;
+      }
+      //duplicate restrict
+      while (arr[j] === arr[j + 1]) j++;
+    }
+    //duplicates restricting
+    while (arr[i] === arr[i + 1]) i++;
+  }
+  return res;
+}
+
+function fourSum(arr, n, X) {
+  // code here
+  arr.sort((a, b) => a - b);
+  let mp = new Map();
+  let res = [];
+  for (let i = 0; i < n - 1; i++)
+    for (let j = i + 1; j < n; j++) mp.set(arr[i] + arr[j], [i, j]);
+
+  // Traverse through all pairs and search
+  // for X - (current pair sum).
+  console.log(mp);
+
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = i + 1; j < n; j++) {
+      let sum = arr[i] + arr[j];
+      console.log(mp.has(X - sum));
+      // If X - sum is present in hash table,
+      if (mp.has(X - sum)) {
+        // Making sure that all elements are
+        // distinct array elements and an
+        // element is not considered more than
+        // once.
+        let p = mp.get(X - sum);
+        // if (p[0] != i && p[0] != j
+        //     && p[1] != i && p[1] != j) {
+        //         res.push([arr[i],arr[j],arr[p[0]],arr[p[1]]])
+        // }
+      }
+    }
+  }
+  return res;
+}
+fourSum([0, 0, 2, 1, 1], 5, 3);
+// fourSum([10,2,3,4,5,7,8],7,23)
+// 10,2,3,4,5,7,8
