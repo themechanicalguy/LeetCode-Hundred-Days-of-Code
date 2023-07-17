@@ -16,13 +16,28 @@ Algorithm:
  * @returns { (...args: any[]) => any }
  */
 function curry(func) {
+  // console.dir(func);
   return function curried(...args) {
+    let context = this;
     // 1. if enough args, call func
     // 2. if not enough, bind the args and wait for the new one
     if (args.length >= func.length) {
       return func(...args);
+      // return
     } else {
-      return curried.bind(null, ...args);
+      return curried.bind(context, ...args);
     }
   };
 }
+
+const join = (a, b, c) => {
+  return `${a}_${b}_${c}`;
+};
+
+const curriedJoin = curry(join);
+
+console.log(curriedJoin(1, 2, 3)); // '1_2_3'
+
+// curriedJoin(1)(2, 3); // '1_2_3'
+
+// curriedJoin(1, 2)(3); // '1_2_3'

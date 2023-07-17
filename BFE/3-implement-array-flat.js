@@ -22,6 +22,7 @@ function flat(arr, depth = 1) {
   const res = [];
   for (let item of arr) {
     if (Array.isArray(item) && depth > 0) {
+      // const res = ;
       res.push(...flat(item, depth - 1));
     } else {
       res.push(item);
@@ -29,3 +30,13 @@ function flat(arr, depth = 1) {
   }
   return res;
 }
+
+const arr = [1, [2], [3, [4]]];
+
+console.log(flat(arr));
+// [1, 2, 3, [4]]
+
+console.log(flat(arr, 1));
+// [1, 2, 3, [4]]
+
+console.log(flat(arr, 2));
