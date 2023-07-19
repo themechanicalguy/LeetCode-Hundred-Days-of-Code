@@ -25,13 +25,8 @@ Return curried function that takes all args as argument
  */
 function curry(func) {
   const funParameterLen = func.length;
-  // console.log(...args);
   return function curried(...args) {
-    // console.log(...args);
-    // const argsClone = args.slice(0, funParameterLen);
     const argsClone = [...args];
-    // console.log("clone", argsClone);
-    // console.log("spread", [...args]);
     const isPlaceHolder = argsClone.includes(curry.placeholder);
 
     if (args.length >= funParameterLen && !isPlaceHolder) {

@@ -32,7 +32,6 @@ function throttle(func, wait) {
     if (trigger) {
       func(...arguments);
       trigger = false;
-
       setTimeout(() => {
         //when wait time's up
         trigger = true;
